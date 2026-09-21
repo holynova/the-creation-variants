@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>创世纪 · 触碰的三十种可能 | The Genesis Touch - 30 Variations of Creation</title>
+  <meta name="description" content="致敬米开朗基罗《创造亚当》经典构图，探索科技、宇宙、哲学、艺术、自然与日常情感中，生命与造物指尖相触的30种终极隐喻。">
+  <meta property="og:title" content="创世纪 · 触碰的三十种可能">
+  <meta property="og:description" content="30个米开朗基罗经典名画《创造亚当》变种数字艺术展厅">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient-glow"></div>
+
+  <div class="container">
+    <!-- Hero Header -->
+    <header class="hero-header">
+      <div class="fresco-crest">
+        <span>✦</span>
+        <span>Sistine Transfiguration 1512 — 2026</span>
+        <span>✦</span>
+      </div>
+      <h1 class="hero-title">创世纪 · 触碰的三十种可能</h1>
+      <div class="hero-subtitle-en">The Genesis Touch: 30 Variations of Divine Creation</div>
+      <p class="hero-desc">
+        米开朗基罗在西斯廷礼拜堂天顶所绘的《创造亚当》，以神与人手指几近相触的数厘米空间，定格了艺术史上最震撼人心的张力。
+        本展厅重塑这一经典符号，将这一缕“跨界传递生命火花”的触碰，延伸至人工智能、科学启蒙、艺术狂想、自然共生与人间深情。
+      </p>
+    </header>
+
+    <!-- Control Bar -->
+    <section class="control-bar">
+      <nav class="category-nav" aria-label="分类导航">
+        <button class="filter-btn active" data-category="all">全部作品 (<span id="itemCount">30</span>)</button>
+        <button class="filter-btn" data-category="tech">科技与共生</button>
+        <button class="filter-btn" data-category="cosmos">宇宙与探索</button>
+        <button class="filter-btn" data-category="art">艺术与哲学</button>
+        <button class="filter-btn" data-category="nature">自然与共生</button>
+        <button class="filter-btn" data-category="fantasy">奇幻与超现实</button>
+        <button class="filter-btn" data-category="humanity">人间与温情</button>
+      </nav>
+
+      <div class="utility-actions">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="搜索主题、人物、寓意...">
+        </div>
+        <button id="themeToggleBtn" class="theme-toggle-btn" title="切换显示主题">☀️</button>
+      </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <main class="gallery-grid" id="galleryGrid">
+      <!-- Dynamically populated by app.js -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="gallery-footer">
+      <p class="footer-quote">“在无限的时间与空间中，每一次伸出手指的勇敢，都是对虚无世界的再创造。”</p>
+      <p>Curated & Created with Generative AI · Based on Michelangelo's Sistine Ceiling (1512)</p>
+      <p style="margin-top: 8px; font-size: 0.8rem; opacity: 0.7;">
+        Hosted on GitHub Pages · Open Source Art Exhibition
+      </p>
+    </footer>
+  </div>
+
+  <!-- Detail Lightbox Modal -->
+  <div class="modal-overlay" id="artModal" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <button class="modal-close-btn" id="modalCloseBtn" title="关闭 (Esc)">✕</button>
+      <button class="modal-nav-btn modal-nav-prev" id="modalPrevBtn" title="上一张 (←)">‹</button>
+      <button class="modal-nav-btn modal-nav-next" id="modalNextBtn" title="下一张 (→)">›</button>
+
+      <div class="modal-content-grid">
+        <div class="modal-image-col">
+          <img id="modalImg" src="" alt="">
+        </div>
+        <div class="modal-info-col">
+          <div class="modal-num-badge" id="modalNum">VARIATION #01</div>
+          <h2 class="modal-title-cn" id="modalTitleCN">人类与人工智能</h2>
+          <div class="modal-title-en" id="modalTitleEN">Human & Artificial Intelligence</div>
+          
+          <div class="modal-touch-card">
+            <div class="touch-label">✦ 触碰瞬间 (The Touch)</div>
+            <div class="touch-val" id="modalTouch">血肉之躯 ⟷ 光纤神经元</div>
+          </div>
+
+          <div class="modal-meaning-text" id="modalMeaning"></div>
+
+          <div class="modal-quote-box" id="modalQuote"></div>
+
+          <div class="modal-actions">
+            <a id="modalDownloadBtn" class="btn-action btn-primary" href="" download="">
+              <span>⬇ 保存高清画作</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
