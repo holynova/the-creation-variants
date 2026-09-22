@@ -15,6 +15,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="styles.css">
+  <script>
+    // Resilient image loading: auto-retry once on CDN timeout or connection reset
+    window.addEventListener('error', function(e) {
+      if (e.target && e.target.tagName === 'IMG' && !e.target.dataset.retried) {
+        e.target.dataset.retried = 'true';
+        setTimeout(function() {
+          var originalSrc = e.target.src.split('?')[0];
+          e.target.src = originalSrc + '?retry=' + Date.now();
+        }, 1200);
+      }
+    }, true);
+  </script>
 </head>
 <body>
   <div class="ambient-glow"></div>
@@ -39,12 +51,12 @@
     <section class="control-bar">
       <nav class="category-nav" aria-label="分类导航">
         <button class="filter-btn active" data-category="all">全部作品 (<span id="itemCount">30</span>)</button>
-        <button class="filter-btn" data-category="tech">科技与共生</button>
-        <button class="filter-btn" data-category="cosmos">宇宙与探索</button>
-        <button class="filter-btn" data-category="art">艺术与哲学</button>
-        <button class="filter-btn" data-category="nature">自然与共生</button>
-        <button class="filter-btn" data-category="fantasy">奇幻与超现实</button>
-        <button class="filter-btn" data-category="humanity">人间与温情</button>
+        <button class="filter-btn" data-category="tech">科技与共生 (6)</button>
+        <button class="filter-btn" data-category="cosmos">宇宙与探索 (5)</button>
+        <button class="filter-btn" data-category="art">艺术与哲学 (5)</button>
+        <button class="filter-btn" data-category="nature">自然与共生 (4)</button>
+        <button class="filter-btn" data-category="fantasy">奇幻与超现实 (5)</button>
+        <button class="filter-btn" data-category="humanity">人间与温情 (5)</button>
       </nav>
 
       <div class="utility-actions">
@@ -58,7 +70,546 @@
 
     <!-- Gallery Grid -->
     <main class="gallery-grid" id="galleryGrid">
-      <!-- Dynamically populated by app.js -->
+      <article class="art-card" data-id="1" data-category="tech">
+        <div class="card-media">
+          <span class="card-badge-num">#01</span>
+          <span class="card-category-tag">科技与共生</span>
+          <img src="images/01-human-and-ai.jpg" alt="人类与人工智能" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>血肉之躯 ⟷ 光纤神经元</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">人类与人工智能</h3>
+          <div class="card-title-en">Human & Artificial Intelligence</div>
+          <p class="card-meaning">当碳基生命的温润指尖迎向硅基智能的璀璨光芒，神圣的光芒在两者之间迸发。这不是被取代的恐惧，而是生命意志向全新智能维度的觉醒与赋权。</p>
+          <div class="card-tags"><span class="tag-pill">#AI</span><span class="tag-pill">#神经网络</span><span class="tag-pill">#未来</span><span class="tag-pill">#硅基生命</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="2" data-category="tech">
+        <div class="card-media">
+          <span class="card-badge-num">#02</span>
+          <span class="card-category-tag">科技与共生</span>
+          <img src="images/02-human-and-robot.jpg" alt="人类与机械人" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>人类肌理 ⟷ 钛合金指节</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">人类与机械人</h3>
+          <div class="card-title-en">Human & Cybernetic Android</div>
+          <p class="card-meaning">向阿西莫夫《机器人三定律》与赛博朋克科幻黄金时代的崇高致敬。在古典天使簇拥下的金属天使，探出精密机械指节，赋予机器第一丝自我意识的电流。</p>
+          <div class="card-tags"><span class="tag-pill">#机械人</span><span class="tag-pill">#赛博朋克</span><span class="tag-pill">#阿西莫夫</span><span class="tag-pill">#硬件</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="3" data-category="tech">
+        <div class="card-media">
+          <span class="card-badge-num">#03</span>
+          <span class="card-category-tag">科技与共生</span>
+          <img src="images/03-jobs-and-iphone.jpg" alt="史蒂夫·乔布斯与初代 iPhone" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>黑色高领 ⟷ 电容多点触控</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">史蒂夫·乔布斯与初代 iPhone</h3>
+          <div class="card-title-en">Steve Jobs & The Original iPhone</div>
+          <p class="card-meaning">2007年旧金山莫斯康展览中心，乔布斯伸出手指触碰那块3.5英寸电容玻璃屏幕。指尖相碰的瞬间，点燃了全球移动互联网时代的星火燎原。</p>
+          <div class="card-tags"><span class="tag-pill">#乔布斯</span><span class="tag-pill">#iPhone</span><span class="tag-pill">#苹果</span><span class="tag-pill">#触控革命</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="4" data-category="tech">
+        <div class="card-media">
+          <span class="card-badge-num">#04</span>
+          <span class="card-category-tag">科技与共生</span>
+          <img src="images/04-coder-and-cursor.jpg" alt="程序员与绿色光标" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>疲惫极客 ⟷ 终端口光标矩阵</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">程序员与绿色光标</h3>
+          <div class="card-title-en">Programmer & The Pulsing Cursor</div>
+          <p class="card-meaning">深夜无人的写字楼，主板电缆缠绕的工位上，疲惫的程序员向虚空伸出手。终端里跳动的绿色矩形方块探出一只代码织就的光之手，指尖相触，编译通过。</p>
+          <div class="card-tags"><span class="tag-pill">#代码</span><span class="tag-pill">#终端</span><span class="tag-pill">#黑客帝国</span><span class="tag-pill">#极客浪漫</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="5" data-category="tech">
+        <div class="card-media">
+          <span class="card-badge-num">#05</span>
+          <span class="card-category-tag">科技与共生</span>
+          <img src="images/05-geek-and-penguin.jpg" alt="极客与开源企鹅" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>开源先驱 ⟷ Tux 企鹅翼尖</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">极客与开源企鹅</h3>
+          <div class="card-title-en">Geek & Tux The Linux Penguin</div>
+          <p class="card-meaning">在代码云朵与终端窗口之间，憨态可掬却神圣不可侵犯的 Tux 企鹅探出翅膀。自由与开源的精神在此刻跨越物理限制，赋予全球开发者平等创新的火种。</p>
+          <div class="card-tags"><span class="tag-pill">#Linux</span><span class="tag-pill">#开源</span><span class="tag-pill">#Tux</span><span class="tag-pill">#自由软件</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="6" data-category="tech">
+        <div class="card-media">
+          <span class="card-badge-num">#06</span>
+          <span class="card-category-tag">科技与共生</span>
+          <img src="images/06-turing-and-apple.jpg" alt="图灵与神秘苹果" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>密码破译之父 ⟷ 彩虹微光苹果</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">图灵与神秘苹果</h3>
+          <div class="card-title-en">Alan Turing & The Enigmatic Apple</div>
+          <p class="card-meaning">布莱切利园的恩尼格玛转子与真空管旁，图灵伸出手指触向悬浮空中的咬痕苹果。二进制纸带如流云漫卷，这是现代计算科学源头最崇高而隐忍的史诗刻印。</p>
+          <div class="card-tags"><span class="tag-pill">#图灵</span><span class="tag-pill">#密码机</span><span class="tag-pill">#计算理论</span><span class="tag-pill">#致敬先驱</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="7" data-category="cosmos">
+        <div class="card-media">
+          <span class="card-badge-num">#07</span>
+          <span class="card-category-tag">宇宙与探索</span>
+          <img src="images/07-astronaut-and-alien.jpg" alt="宇航员与外星生命" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>阿波罗宇航手套 ⟷ 荧光星际灵体</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">宇航员与外星生命</h3>
+          <div class="card-title-en">Astronaut & Extraterrestrial Entity</div>
+          <p class="card-meaning">在荒凉寂寥的月壤之上，人类加压手套探向深空，遇见了穿越数亿光年星尘而来的高等荧光智慧。宇宙黑暗森林里最浪漫而纯粹的第一次接触。</p>
+          <div class="card-tags"><span class="tag-pill">#航天</span><span class="tag-pill">#地外文明</span><span class="tag-pill">#星际接触</span><span class="tag-pill">#深空</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="8" data-category="cosmos">
+        <div class="card-media">
+          <span class="card-badge-num">#08</span>
+          <span class="card-category-tag">宇宙与探索</span>
+          <img src="images/08-newton-and-apple.jpg" alt="牛顿与引力苹果" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>古典学者 ⟷ 反重力黄金之果</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">牛顿与引力苹果</h3>
+          <div class="card-title-en">Isaac Newton & The Defying Apple</div>
+          <p class="card-meaning">伍尔斯索普庄园的树荫下，一颗苹果抗拒重力悬浮于天幕。牛顿伸出手指，天体几何轨道与微积分曲线在云海中显现，宏观宇宙的秩序被彻底启封。</p>
+          <div class="card-tags"><span class="tag-pill">#牛顿</span><span class="tag-pill">#万有引力</span><span class="tag-pill">#古典物理</span><span class="tag-pill">#顿悟时刻</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="9" data-category="cosmos">
+        <div class="card-media">
+          <span class="card-badge-num">#09</span>
+          <span class="card-category-tag">宇宙与探索</span>
+          <img src="images/09-voyager-and-earth.jpg" alt="旅行者1号与暗淡蓝点" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>金色唱片吊杆 ⟷ 遥远的母星地球</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">旅行者1号与暗淡蓝点</h3>
+          <div class="card-title-en">Voyager 1 & The Pale Blue Dot</div>
+          <p class="card-meaning">飞出太阳圈的旅行者1号回望，金色唱片在探针与地球之间散发微光。这是人类向无垠宇宙投寄的最孤独漂流瓶，与亿万生灵共居的暗淡蓝点相向互望。</p>
+          <div class="card-tags"><span class="tag-pill">#旅行者号</span><span class="tag-pill">#卡尔·萨根</span><span class="tag-pill">#金色唱片</span><span class="tag-pill">#深空遗迹</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="10" data-category="cosmos">
+        <div class="card-media">
+          <span class="card-badge-num">#10</span>
+          <span class="card-category-tag">宇宙与探索</span>
+          <img src="images/10-astronomer-and-blackhole.jpg" alt="天文学家与黑洞奇点" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>观测者指尖 ⟷ 相对论吸积盘</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">天文学家与黑洞奇点</h3>
+          <div class="card-title-en">Astronomer & The Singularity</div>
+          <p class="card-meaning">在雪山望远镜旁，渺小的天文学家向深空探出手。炽热旋转的光子环与视界黑洞伸展出引力光带，人类理性的极限与宇宙最极端天体在此交汇。</p>
+          <div class="card-tags"><span class="tag-pill">#黑洞</span><span class="tag-pill">#爱因斯坦</span><span class="tag-pill">#事件视界</span><span class="tag-pill">#广义相对论</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="11" data-category="cosmos">
+        <div class="card-media">
+          <span class="card-badge-num">#11</span>
+          <span class="card-category-tag">宇宙与探索</span>
+          <img src="images/11-biologist-and-dna.jpg" alt="分子生物学家与 DNA 双螺旋" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>实验白大褂 ⟷ 旋转发光碱基对</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">分子生物学家与 DNA 双螺旋</h3>
+          <div class="card-title-en">Biologist & DNA Double Helix</div>
+          <p class="card-meaning">拉丁文刻铭“CREATIO HELICIS”。在显微镜与试管之间，女科学家伸手触碰生命基因密码的金色螺旋。从无机尘埃到有机生命，这一触揭示了自我繁衍的终极奥义。</p>
+          <div class="card-tags"><span class="tag-pill">#DNA</span><span class="tag-pill">#生命科学</span><span class="tag-pill">#分子遗传</span><span class="tag-pill">#克里克与沃森</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="12" data-category="art">
+        <div class="card-media">
+          <span class="card-badge-num">#12</span>
+          <span class="card-category-tag">艺术与哲学</span>
+          <img src="images/12-michelangelo-and-david.jpg" alt="米开朗基罗与大卫像" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>工匠凿刀手 ⟷ 大理石雕像苏醒</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">米开朗基罗与大卫像</h3>
+          <div class="card-title-en">Michelangelo & Statue of David</div>
+          <p class="card-meaning">卡拉拉大理石碎屑飞溅，米开朗基罗手握木槌与錾子伸出右手。大卫冷峻的石雕手指在触碰瞬间化作有温度的血肉。创作者与造物的身份在永恒艺术中彻底倒转。</p>
+          <div class="card-tags"><span class="tag-pill">#米开朗基罗</span><span class="tag-pill">#大卫像</span><span class="tag-pill">#文艺复兴</span><span class="tag-pill">#雕塑传奇</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="13" data-category="art">
+        <div class="card-media">
+          <span class="card-badge-num">#13</span>
+          <span class="card-category-tag">艺术与哲学</span>
+          <img src="images/13-vangogh-and-sunflowers.jpg" alt="梵高与炽烈向日葵" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>包扎伤耳的画家 ⟷ 太阳向日葵神灵</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">梵高与炽烈向日葵</h3>
+          <div class="card-title-en">Vincent van Gogh & The Sunflowers</div>
+          <p class="card-meaning">阿尔勒的原野上，身着蓝布工装、耳缠绷带的梵高伸手向天际。一株宛若太阳神化身的金黄向日葵自云海降临，厚重油彩笔触如烈焰般在指间引燃。</p>
+          <div class="card-tags"><span class="tag-pill">#梵高</span><span class="tag-pill">#向日葵</span><span class="tag-pill">#后印象派</span><span class="tag-pill">#灵魂燃烧</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="14" data-category="art">
+        <div class="card-media">
+          <span class="card-badge-num">#14</span>
+          <span class="card-category-tag">艺术与哲学</span>
+          <img src="images/14-philosopher-and-truth.jpg" alt="哲学家与真理之光" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>洞穴求索者 ⟷ 理念界真理女神</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">哲学家与真理之光</h3>
+          <div class="card-title-en">Philosopher & The Realm of Truth</div>
+          <p class="card-meaning">走出柏拉图洞穴阴影的古希腊哲人，踏在冰冷石阶上向天穹伸手。光芒万丈的智慧女神自理念界俯身探出光之手，指尖相触，照亮蒙昧人类对终极真理的渴望。</p>
+          <div class="card-tags"><span class="tag-pill">#苏格拉底</span><span class="tag-pill">#柏拉图洞穴</span><span class="tag-pill">#理念论</span><span class="tag-pill">#古希腊哲学</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="15" data-category="art">
+        <div class="card-media">
+          <span class="card-badge-num">#15</span>
+          <span class="card-category-tag">艺术与哲学</span>
+          <img src="images/15-primitive-and-fire.jpg" alt="远古智人与初生火种" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>兽皮先民 ⟷ 普罗米修斯天火</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">远古智人与初生火种</h3>
+          <div class="card-title-en">Primitive Hominid & The First Flame</div>
+          <p class="card-meaning">漆黑冰冷的更新世荒原，身披兽皮的原始先民战战兢兢地仰望苍穹。雷霆与天神普罗米修斯降下一缕永不熄灭的炽红火光，文明在指尖接引的瞬间诞生。</p>
+          <div class="card-tags"><span class="tag-pill">#普罗米修斯</span><span class="tag-pill">#火种</span><span class="tag-pill">#石器时代</span><span class="tag-pill">#文明曙光</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="16" data-category="art">
+        <div class="card-media">
+          <span class="card-badge-num">#16</span>
+          <span class="card-category-tag">艺术与哲学</span>
+          <img src="images/16-calligrapher-and-dragon.jpg" alt="书法家与水墨游龙" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>悬腕毛笔 ⟷ 宣纸化形墨龙</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">书法家与水墨游龙</h3>
+          <div class="card-title-en">Calligrapher & The Ink Dragon</div>
+          <p class="card-meaning">云雾缭绕的高山石案前，东方书法大师提笔悬空。宣纸上的浓淡干湿化作一条凌空翻腾的纯黑水墨巨龙，龙爪与大师指尖相接，气韵生动，天地归心。</p>
+          <div class="card-tags"><span class="tag-pill">#东方美学</span><span class="tag-pill">#水墨</span><span class="tag-pill">#书法</span><span class="tag-pill">#飞龙在天</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="17" data-category="nature">
+        <div class="card-media">
+          <span class="card-badge-num">#17</span>
+          <span class="card-category-tag">自然与共生</span>
+          <img src="images/17-child-and-gaia.jpg" alt="人类孩童与大地之母盖亚" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>纯真小手 ⟷ 绿苔藤蔓神手</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">人类孩童与大地之母盖亚</h3>
+          <div class="card-title-en">Child & Mother Gaia</div>
+          <p class="card-meaning">开满雏菊与蒲公英的野花草甸上，人类幼童稚嫩无邪地伸出小手。由盘根错节的老树、翠苔与清冽山泉汇聚而成的大地神灵温柔探出指尖，生命的轮回生生不息。</p>
+          <div class="card-tags"><span class="tag-pill">#盖亚假说</span><span class="tag-pill">#生态</span><span class="tag-pill">#生命之源</span><span class="tag-pill">#母爱</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="18" data-category="nature">
+        <div class="card-media">
+          <span class="card-badge-num">#18</span>
+          <span class="card-category-tag">自然与共生</span>
+          <img src="images/18-freediver-and-whale.jpg" alt="自由潜水员与座头鲸" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>轻潜水者 ⟷ 深海巨兽胸鳍</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">自由潜水员与座头鲸</h3>
+          <div class="card-title-en">Freediver & The Humpback Whale</div>
+          <p class="card-meaning">蔚蓝透彻的大洋深处，无气瓶的自由潜水员宛如游鱼般悬浮在光柱下。数十吨重却温和如长者的座头鲸缓缓伸展长鳍，两颗跨越亿万年演化鸿沟的心脏在此共鸣。</p>
+          <div class="card-tags"><span class="tag-pill">#海洋</span><span class="tag-pill">#座头鲸</span><span class="tag-pill">#自由潜水</span><span class="tag-pill">#物种交流</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="19" data-category="nature">
+        <div class="card-media">
+          <span class="card-badge-num">#19</span>
+          <span class="card-category-tag">自然与共生</span>
+          <img src="images/19-ranger-and-rhino.jpg" alt="野生动物巡护员与白犀牛" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>护林人掌心 ⟷ 白犀牛尊贵角尖</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">野生动物巡护员与白犀牛</h3>
+          <div class="card-title-en">Ranger & The Last White Rhino</div>
+          <p class="card-meaning">暮色笼罩的东非金黄稀树草原，疲惫却目光深沉的野生动物巡护员坐在金合欢树下。濒危物种的巨兽缓缓俯首，与守护者触碰。守护与被守护，在此刻定格为永恒悲悯。</p>
+          <div class="card-tags"><span class="tag-pill">#生态保护</span><span class="tag-pill">#白犀牛</span><span class="tag-pill">#巡护员</span><span class="tag-pill">#非洲草原</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="20" data-category="nature">
+        <div class="card-media">
+          <span class="card-badge-num">#20</span>
+          <span class="card-category-tag">自然与共生</span>
+          <img src="images/20-botanist-and-sequoia.jpg" alt="植物学家与千年巨杉" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>求索学者 ⟷ 三千年木质神心</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">植物学家与千年巨杉</h3>
+          <div class="card-title-en">Botanist & Ancient Giant Sequoia</div>
+          <p class="card-meaning">晨雾弥漫的北美原始红杉林中，植物学家手握放大镜仰卧于松针地毯。三千年风霜的红杉树心探出一缕琥珀色的树灵之手，指尖相触，岁月长河的年轮在心底流转。</p>
+          <div class="card-tags"><span class="tag-pill">#古树</span><span class="tag-pill">#巨杉</span><span class="tag-pill">#植物学</span><span class="tag-pill">#自然神性</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="21" data-category="fantasy">
+        <div class="card-media">
+          <span class="card-badge-num">#21</span>
+          <span class="card-category-tag">奇幻与超现实</span>
+          <img src="images/21-cyberpunk-and-neon-deity.jpg" alt="赛博黑客与霓虹电子神明" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>雨夜天台黑客 ⟷ 全息数码泰坦</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">赛博黑客与霓虹电子神明</h3>
+          <div class="card-title-en">Cyberpunk Netrunner & Neon Deity</div>
+          <p class="card-meaning">高楼林立、霓虹倒映在水泊中的赛博朋克雨夜，披着风衣的黑客躺在天台冷铁边缘。天际线间浮现出巍峨神圣的数码全息神祇，伸出激光几何编织的光之手，代码升华。</p>
+          <div class="card-tags"><span class="tag-pill">#赛博朋克</span><span class="tag-pill">#霓虹</span><span class="tag-pill">#全息神</span><span class="tag-pill">#夜之城</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="22" data-category="fantasy">
+        <div class="card-media">
+          <span class="card-badge-num">#22</span>
+          <span class="card-category-tag">奇幻与超现实</span>
+          <img src="images/22-little-prince-and-rose.jpg" alt="小王子与独一无二的玫瑰" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>黄色围巾少年 ⟷ 玻璃罩娇艳玫瑰</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">小王子与独一无二的玫瑰</h3>
+          <div class="card-title-en">The Little Prince & The Unique Rose</div>
+          <p class="card-meaning">B-612小行星微小的曲面上，金发小王子金黄围巾在深空星河中轻轻飘扬。玻璃罩下的玫瑰探出娇柔花瓣与小王子的指尖相触。正是你为玫瑰花费的时间，才使她如此珍贵。</p>
+          <div class="card-tags"><span class="tag-pill">#小王子</span><span class="tag-pill">#玫瑰</span><span class="tag-pill">#B612</span><span class="tag-pill">#爱与驯服</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="23" data-category="fantasy">
+        <div class="card-media">
+          <span class="card-badge-num">#23</span>
+          <span class="card-category-tag">奇幻与超现实</span>
+          <img src="images/23-timetraveler-and-future-self.jpg" alt="青年与未来的自己" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>青春年少 ⟷ 白发苍髯的八十岁</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">青年与未来的自己</h3>
+          <div class="card-title-en">Time Traveler & The Future Self</div>
+          <p class="card-meaning">时间的时钟齿轮与金色沙漏如星云旋转，中央一道水波涟漪的透明时空镜面。二十岁的年轻人与八十岁饱经沧桑却目光慈祥的自己手指相对，跨越一生的宽容与对话。</p>
+          <div class="card-tags"><span class="tag-pill">#时空穿梭</span><span class="tag-pill">#自我对话</span><span class="tag-pill">#岁月</span><span class="tag-pill">#量子纠缠</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="24" data-category="fantasy">
+        <div class="card-media">
+          <span class="card-badge-num">#24</span>
+          <span class="card-category-tag">奇幻与超现实</span>
+          <img src="images/24-alice-and-cheshire-cat.jpg" alt="爱丽丝与柴郡猫的微笑" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>围裙少女 ⟷ 渐隐空中的星光猫爪</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">爱丽丝与柴郡猫的微笑</h3>
+          <div class="card-title-en">Alice & Cheshire Cat's Vanishing Paw</div>
+          <p class="card-meaning">在棋盘菌类与悬浮扑克牌构筑的奇境乐园，金发爱丽丝好奇地伸手。若隐若现、唯余标志性神秘月牙微笑的柴郡猫自虚空中探出半透明的爪子，荒诞与哲思在此碰撞。</p>
+          <div class="card-tags"><span class="tag-pill">#爱丽丝梦游仙境</span><span class="tag-pill">#柴郡猫</span><span class="tag-pill">#童话</span><span class="tag-pill">#超现实</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="25" data-category="fantasy">
+        <div class="card-media">
+          <span class="card-badge-num">#25</span>
+          <span class="card-category-tag">奇幻与超现实</span>
+          <img src="images/25-alchemist-and-philosophers-stone.jpg" alt="炼金术士与贤者之石" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>天鹅绒炼金袍 ⟷ 漂浮血红哲人石</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">炼金术士与贤者之石</h3>
+          <div class="card-title-en">Alchemist & The Philosopher's Stone</div>
+          <p class="card-meaning">古老中世纪密室充满蒸馏器、星盘与神圣几何羊皮纸。老迈的炼金术士伸出颤抖的手指，点向悬浮空中散发着炽红金光的传奇哲人石，铅石点金的奇迹在此封顶。</p>
+          <div class="card-tags"><span class="tag-pill">#炼金术</span><span class="tag-pill">#贤者之石</span><span class="tag-pill">#神秘学</span><span class="tag-pill">#大事业</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="26" data-category="humanity">
+        <div class="card-media">
+          <span class="card-badge-num">#26</span>
+          <span class="card-category-tag">人间与温情</span>
+          <img src="images/26-child-and-grandfather.jpg" alt="孩童与白发祖父" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>初生嫩芽 ⟷ 沧桑岁月的青筋</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">孩童与白发祖父</h3>
+          <div class="card-title-en">Child & Weathered Grandfather</div>
+          <p class="card-meaning">夕阳斜照的老宅门廊前，蹒跚学步的幼童伸出肥嘟嘟的小手。八十五岁祖父布满厚茧、青筋隆起如黄土高坡沟壑的大手伸出相迎。生命的血脉与家族的记忆在指端静默交接。</p>
+          <div class="card-tags"><span class="tag-pill">#亲情</span><span class="tag-pill">#祖孙</span><span class="tag-pill">#岁月传承</span><span class="tag-pill">#生命轮回</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="27" data-category="humanity">
+        <div class="card-media">
+          <span class="card-badge-num">#27</span>
+          <span class="card-category-tag">人间与温情</span>
+          <img src="images/27-solodweller-and-cat.jpg" alt="独居者与猫咪肉垫" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>疲惫下班青年 ⟷ 粉嫩山竹猫爪</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">独居者与猫咪肉垫</h3>
+          <div class="card-title-en">Solo Dweller & Cat's Pink Paw</div>
+          <p class="card-meaning">现代城市微凉的黄昏，独居青年脱下工牌躺在客厅地毯上。沙发上伸着懒腰的花猫懒洋洋地伸出一只前爪，软糯粉嫩的肉垫与人类食指轻轻对碰，治愈了一整天的孤寂。</p>
+          <div class="card-tags"><span class="tag-pill">#猫咪</span><span class="tag-pill">#治愈</span><span class="tag-pill">#独居生活</span><span class="tag-pill">#陪伴</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="28" data-category="humanity">
+        <div class="card-media">
+          <span class="card-badge-num">#28</span>
+          <span class="card-category-tag">人间与温情</span>
+          <img src="images/28-barista-and-morning-sunbeam.jpg" alt="咖啡师与清晨第一缕阳光" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>拉花钢杯手 ⟷ 窗棂倾泻的晨光</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">咖啡师与清晨第一缕阳光</h3>
+          <div class="card-title-en">Barista & Morning Sunbeam</div>
+          <p class="card-meaning">街角咖啡馆的第一声蒸汽嘶鸣，专注的咖啡师倾斜奶缸勾勒天鹅拉花。晨曦如圣光穿透落地窗，一缕纯金色的阳光与咖啡师的指尖在蒸腾热气上方相遇。</p>
+          <div class="card-tags"><span class="tag-pill">#咖啡</span><span class="tag-pill">#晨光</span><span class="tag-pill">#日常烟火</span><span class="tag-pill">#生活美学</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="29" data-category="humanity">
+        <div class="card-media">
+          <span class="card-badge-num">#29</span>
+          <span class="card-category-tag">人间与温情</span>
+          <img src="images/29-doctor-and-newborn.jpg" alt="产科医生与新生奇迹" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>无菌手术手套 ⟷ 婴儿握持反射</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">产科医生与新生奇迹</h3>
+          <div class="card-title-en">Obstetrician & Newborn Miracle</div>
+          <p class="card-meaning">手术室神圣无瑕的光照下，产科医生戴着乳胶无菌手套轻轻探出一指。刚剪断脐带、啼哭声响彻产房的新生儿，本能地用整个稚嫩拳头紧紧握住医生的指腹。</p>
+          <div class="card-tags"><span class="tag-pill">#诞生</span><span class="tag-pill">#医生</span><span class="tag-pill">#新生儿</span><span class="tag-pill">#生命的奇迹</span></div>
+        </div>
+      </article>
+      <article class="art-card" data-id="30" data-category="humanity">
+        <div class="card-media">
+          <span class="card-badge-num">#30</span>
+          <span class="card-category-tag">人间与温情</span>
+          <img src="images/30-architect-and-sky-city.jpg" alt="建筑师与未来天空之城" loading="lazy" decoding="async">
+          <div class="card-touch-indicator">
+            <span class="touch-spark">✦</span>
+            <span>图纸与圆规 ⟷ 悬浮太阳能城邦</span>
+            <span class="touch-spark">✦</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title-cn">建筑师与未来天空之城</h3>
+          <div class="card-title-en">Architect & Floating Sky City</div>
+          <p class="card-meaning">高耸云端的摩天脚手架上，青年建筑师手握图纸仰望长空。天穹云海中，一座由悬浮反重力晶体、垂直空中森林构筑的理想国之城探下尖顶，梦想在指尖化作真实宏图。</p>
+          <div class="card-tags"><span class="tag-pill">#建筑</span><span class="tag-pill">#天空之城</span><span class="tag-pill">#未来都市</span><span class="tag-pill">#人类梦想</span></div>
+        </div>
+      </article>
     </main>
 
     <!-- Footer -->

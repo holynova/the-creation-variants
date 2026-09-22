@@ -27,7 +27,6 @@ const modalNextBtn = document.getElementById('modalNextBtn');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  renderGallery();
   initEventListeners();
   initTheme();
 });
@@ -87,6 +86,17 @@ function initEventListeners() {
     if (e.key === 'ArrowLeft') showPrevModal();
     if (e.key === 'ArrowRight') showNextModal();
   });
+
+  // Card click event delegation
+  galleryGrid.addEventListener('click', (e) => {
+    const card = e.target.closest('.art-card');
+    if (!card) return;
+    const id = parseInt(card.dataset.id, 10);
+    const index = filteredVariations.findIndex(item => item.id === id);
+    if (index !== -1) {
+      openModal(index);
+    }
+  });
 }
 
 function applyFilters() {
@@ -122,6 +132,7 @@ function renderGallery() {
     const card = document.createElement('div');
     card.className = 'art-card';
     card.dataset.index = index;
+    card.dataset.id = item.id;
 
     const formattedId = String(item.id).padStart(2, '0');
 
@@ -129,7 +140,7 @@ function renderGallery() {
       <div class="card-media">
         <span class="card-badge-num">#${formattedId}</span>
         <span class="card-category-tag">${item.categoryLabel}</span>
-        <img src="${item.image}" alt="${item.titleCN}" loading="lazy" onerror="this.src='images/01-human-and-ai.jpg'">
+        <img src="${item.image}" alt="${item.titleCN}" loading="lazy" decoding="async">
         <div class="card-touch-indicator">
           <span class="touch-spark">✦</span>
           <span>${item.touchSubject}</span>
@@ -145,10 +156,6 @@ function renderGallery() {
         </div>
       </div>
     `;
-
-    card.addEventListener('click', () => {
-      openModal(index);
-    });
 
     galleryGrid.appendChild(card);
   });
