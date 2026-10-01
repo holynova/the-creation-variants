@@ -114,6 +114,16 @@ function applyFilters() {
   renderGallery();
 }
 
+function getThumbnailUrl(originalPath) {
+  const filename = originalPath.split('/').pop().replace('.jpg', '.webp');
+  return `images/thumbs-webp/${filename}`;
+}
+
+function getDetailUrl(originalPath) {
+  const filename = originalPath.split('/').pop().replace('.jpg', '.webp');
+  return `images/detail-webp/${filename}`;
+}
+
 function renderGallery() {
   galleryGrid.innerHTML = '';
   countDisplay.textContent = filteredVariations.length;
@@ -135,12 +145,17 @@ function renderGallery() {
     card.dataset.id = item.id;
 
     const formattedId = String(item.id).padStart(2, '0');
+    const thumbUrl = getThumbnailUrl(item.image);
+    const isEager = index < 4;
+    const loadingAttrs = isEager
+      ? 'width="600" height="335" loading="eager" fetchpriority="high" decoding="async"'
+      : 'width="600" height="335" loading="lazy" decoding="async"';
 
     card.innerHTML = `
       <div class="card-media">
         <span class="card-badge-num">#${formattedId}</span>
         <span class="card-category-tag">${item.categoryLabel}</span>
-        <img src="${item.image}" alt="${item.titleCN}" loading="lazy" decoding="async">
+        <img src="${thumbUrl}" alt="${item.titleCN}" ${loadingAttrs}>
         <div class="card-touch-indicator">
           <span class="touch-spark">✦</span>
           <span>${item.touchSubject}</span>
@@ -161,11 +176,14 @@ function renderGallery() {
   });
 }
 
+let currentModalToken = 0;
+
 function openModal(index) {
   currentModalIndex = index;
   const item = filteredVariations[currentModalIndex];
   if (!item) return;
 
+  const token = ++currentModalToken;
   const formattedId = String(item.id).padStart(2, '0');
   modalNum.textContent = `VARIATION #${formattedId} · ${item.categoryLabel.toUpperCase()}`;
   modalTitleCN.textContent = item.titleCN;
@@ -173,17 +191,41 @@ function openModal(index) {
   modalTouch.textContent = item.touchSubject;
   modalMeaning.textContent = item.meaning;
   modalQuote.textContent = item.quote;
-  modalImg.src = item.image;
-  modalImg.alt = item.titleCN;
 
-  modalDownloadBtn.href = item.image;
-  modalDownloadBtn.setAttribute('download', `${formattedId}-${item.titleEN.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.png`);
+  const thumbUrl = getThumbnailUrl(item.image);
+  const detailUrl = getDetailUrl(item.image);
+
+  // Instantly show the already-cached thumbnail with subtle blur
+  modalImg.src = thumbUrl;
+  modalImg.style.filter = 'blur(4px)';
+
+  // Asynchronously decode the high-definition WebP detail image
+  const highRes = new Image();
+  highRes.src = detailUrl;
+
+  const onLoaded = () => {
+    if (token === currentModalToken) {
+      modalImg.src = detailUrl;
+      modalImg.style.filter = 'none';
+    }
+  };
+
+  if (typeof highRes.decode === 'function') {
+    highRes.decode().then(onLoaded).catch(onLoaded);
+  } else {
+    highRes.onload = onLoaded;
+  }
+
+  modalImg.alt = item.titleCN;
+  modalDownloadBtn.href = item.image; // Retain original full-res JPG for download
+  modalDownloadBtn.setAttribute('download', `${formattedId}-${item.titleEN.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.jpg`);
 
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
+  currentModalToken++;
   modal.classList.remove('active');
   document.body.style.overflow = '';
 }
