@@ -3,13 +3,14 @@ let currentCategory = 'all';
 let searchQuery = '';
 let currentModalIndex = 0;
 let filteredVariations = [...VARIATIONS];
+let lastFocusedElement = null;
 
 // DOM Elements
 const galleryGrid = document.getElementById('galleryGrid');
 const filterButtons = document.querySelectorAll('.filter-btn');
 const searchInput = document.getElementById('searchInput');
 const themeToggleBtn = document.getElementById('themeToggleBtn');
-const countDisplay = document.getElementById('itemCount');
+const resultCount = document.getElementById('resultCount');
 
 // Modal Elements
 const modal = document.getElementById('artModal');
@@ -48,9 +49,16 @@ function toggleTheme() {
 function updateThemeIcon(theme) {
   themeToggleBtn.innerHTML = theme === 'parchment' ? '🌙' : '☀️';
   themeToggleBtn.setAttribute('title', theme === 'parchment' ? '切换为深色模式' : '切换为羊皮纸古典模式');
+  themeToggleBtn.setAttribute('aria-label', theme === 'parchment' ? '切换为深色模式' : '切换为羊皮纸古典模式');
 }
 
 function initEventListeners() {
+  // Make the statically rendered cards keyboard-operable
+  galleryGrid.querySelectorAll('.art-card').forEach(card => {
+    const item = VARIATIONS.find(v => v.id === parseInt(card.dataset.id, 10));
+    if (item) makeCardAccessible(card, item);
+  });
+
   // Category filter
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -97,6 +105,25 @@ function initEventListeners() {
       openModal(index);
     }
   });
+
+  // Card keyboard activation (Enter / Space)
+  galleryGrid.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('.art-card');
+    if (!card) return;
+    e.preventDefault();
+    const id = parseInt(card.dataset.id, 10);
+    const index = filteredVariations.findIndex(item => item.id === id);
+    if (index !== -1) {
+      openModal(index);
+    }
+  });
+}
+
+function makeCardAccessible(card, item) {
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('role', 'button');
+  card.setAttribute('aria-label', `查看作品：${item.titleCN}`);
 }
 
 function applyFilters() {
@@ -126,13 +153,13 @@ function getDetailUrl(originalPath) {
 
 function renderGallery() {
   galleryGrid.innerHTML = '';
-  countDisplay.textContent = filteredVariations.length;
+  if (resultCount) resultCount.textContent = `已显示 ${filteredVariations.length} 幅，共 ${VARIATIONS.length} 幅`;
 
   if (filteredVariations.length === 0) {
     galleryGrid.innerHTML = `
-      <div style="grid-column: 1 / -1; text-align: center; padding: 60px 0; color: var(--text-muted);">
-        <p style="font-size: 1.3rem; margin-bottom: 8px;">未找到匹配的作品</p>
-        <p style="font-size: 0.95rem;">请尝试更换关键词或选择不同的主题分类</p>
+      <div class="empty-state">
+        <p class="empty-state-title">未找到匹配的作品</p>
+        <p class="empty-state-hint">请尝试更换关键词或选择不同的主题分类</p>
       </div>
     `;
     return;
@@ -143,6 +170,7 @@ function renderGallery() {
     card.className = 'art-card';
     card.dataset.index = index;
     card.dataset.id = item.id;
+    makeCardAccessible(card, item);
 
     const formattedId = String(item.id).padStart(2, '0');
     const thumbUrl = getThumbnailUrl(item.image);
@@ -185,7 +213,7 @@ function openModal(index) {
 
   const token = ++currentModalToken;
   const formattedId = String(item.id).padStart(2, '0');
-  modalNum.textContent = `VARIATION #${formattedId} · ${item.categoryLabel.toUpperCase()}`;
+  modalNum.textContent = `VARIATION #${formattedId} — ${item.categoryLabel}`;
   modalTitleCN.textContent = item.titleCN;
   modalTitleEN.textContent = item.titleEN;
   modalTouch.textContent = item.touchSubject;
@@ -220,14 +248,23 @@ function openModal(index) {
   modalDownloadBtn.href = item.image; // Retain original full-res JPG for download
   modalDownloadBtn.setAttribute('download', `${formattedId}-${item.titleEN.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.jpg`);
 
+  const wasOpen = modal.classList.contains('active');
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
+  if (!wasOpen) {
+    lastFocusedElement = document.activeElement;
+    modalCloseBtn.focus();
+  }
 }
 
 function closeModal() {
   currentModalToken++;
   modal.classList.remove('active');
   document.body.style.overflow = '';
+  if (lastFocusedElement && document.contains(lastFocusedElement)) {
+    lastFocusedElement.focus();
+  }
+  lastFocusedElement = null;
 }
 
 function showPrevModal() {
